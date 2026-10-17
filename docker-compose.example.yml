@@ -48,7 +48,9 @@ services:
   # Renders Mermaid syntax to SVG/PNG for the theme module.
   # Only reachable from other services on this compose network.
   pele-render:
-    build: ./pele-render
+    image: ghcr.io/felixyman/bookstack-pele-render:1.0.0
+    # Alternative: build from source instead of using the published image.
+    # build: ./pele-render
     container_name: bookstack_pele_render
     environment:
       - PELE_RENDER_TOKEN=${PELE_RENDER_TOKEN:?set PELE_RENDER_TOKEN in .env}

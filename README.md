@@ -38,14 +38,14 @@ to a normal code block.
 
 ## Installation
 
-### 1. Build the sidecar service
+### 1. Run the sidecar service
 
-Copy the `pele-render/` directory (or clone this repository) next to your
-BookStack compose file, then add a service:
+Add the renderer service to your `docker-compose.yml` (a prebuilt image is
+published to GitHub Container Registry for `linux/amd64` and `linux/arm64`):
 
 ```yaml
   pele-render:
-    build: ./pele-render
+    image: ghcr.io/felixyman/bookstack-pele-render:1.0.0
     container_name: bookstack_pele_render
     environment:
       - PELE_RENDER_TOKEN=${PELE_RENDER_TOKEN:?set PELE_RENDER_TOKEN in .env}
@@ -62,6 +62,11 @@ BookStack compose file, then add a service:
     mem_limit: 256m
     cpus: 1.0
 ```
+
+You can also build the image from source instead — replace `image:` with
+`build: ./pele-render` and copy this repository's `pele-render/` folder next to
+your compose file (see Development below). The `latest` tag tracks the newest
+release.
 
 Generate a shared token and put it in a `.env` file next to your compose file:
 
@@ -88,11 +93,13 @@ Install the module ZIP:
 php artisan bookstack:install-module pele-diagrams-1.0.0.zip
 ```
 
-You can pass a local path or a URL, e.g. a release asset from this repository:
+The module ZIPs are attached to
+[GitHub releases](https://github.com/felixyman/bookstack-pele/releases) and the
+installer accepts either a URL or a local path:
 
 ```bash
 php artisan bookstack:install-module \
-  https://github.com/felixyman99/bookstack-pele/releases/download/v1.0.0/pele-diagrams-1.0.0.zip
+  https://github.com/felixyman/bookstack-pele/releases/download/v1.0.0/pele-diagrams-1.0.0.zip
 ```
 
 Confirm the trust prompt. If BookStack reports that no active theme folder
@@ -249,6 +256,10 @@ docs/               screenshots
   `themes/<theme>/modules/pele-diagrams`.
 - Sidecar tests: `cd pele-render && npm install && npm test`
 - Build the distributable module: `scripts/build-module-zip.sh`
+- Releases: pushing a `v*` tag builds the module ZIP, publishes the
+  `linux/amd64`/`linux/arm64` sidecar image to GHCR and creates the GitHub
+  release (`.github/workflows/release.yml`). The tag must match the module
+  version.
 
 ## Troubleshooting
 
