@@ -1,0 +1,82 @@
+---
+
+# Example docker-compose.yml for a BookStack instance using the Pele Diagrams
+# theme module. Based on the linuxserver.io BookStack and MariaDB containers.
+#
+# Copy this file to docker-compose.yml and replace every "<...>" placeholder.
+#
+#   - APP_KEY:      generate with:
+#                     docker run --rm lscr.io/linuxserver/bookstack:latest appkey
+#   - PELE_RENDER_TOKEN: generate with "openssl rand -hex 24" and put it in a
+#                        ".env" file next to this compose file:
+#                          PELE_RENDER_TOKEN=<token>
+
+services:
+
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:version-v26.09.1
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - APP_URL=<your-bookstack-url>
+      - APP_KEY=<generate-an-app-key>
+
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_DATABASE=bookstack
+      - DB_USERNAME=bookstack
+      - DB_PASSWORD=<db-password>
+
+      # Pele Diagrams module configuration.
+      # APP_THEME must point at the theme that hosts the pele-diagrams module
+      # (see README "Install the theme module").
+      - APP_THEME=pele
+      - PELE_RENDER_URL=http://pele-render:3000
+      - PELE_RENDER_TOKEN=${PELE_RENDER_TOKEN:?set PELE_RENDER_TOKEN in .env}
+      - PELE_MAX_WIDTH=900
+    volumes:
+      - ./bookstack_app_data:/config
+      # Alternative to installing the module ZIP: bind-mount the module
+      # directly, keeping it under version control on the host.
+      - ./pele-diagrams:/config/www/themes/pele/modules/pele-diagrams
+    ports:
+      - 6875:80
+    restart: unless-stopped
+
+  # Renders Mermaid syntax to SVG/PNG for the theme module.
+  # Only reachable from other services on this compose network.
+  pele-render:
+    build: ./pele-render
+    container_name: bookstack_pele_render
+    environment:
+      - PELE_RENDER_TOKEN=${PELE_RENDER_TOKEN:?set PELE_RENDER_TOKEN in .env}
+      # Keep fontconfig cache writes inside the tmpfs when running read-only.
+      - HOME=/tmp
+      - XDG_CACHE_HOME=/tmp
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    cpus: 1.0
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:11.4.9
+    container_name: bookstack_mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - MYSQL_ROOT_PASSWORD=<db-root-password>
+      - MYSQL_DATABASE=bookstack
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=<db-password>
+    volumes:
+      - ./bookstack_db_data:/config
+    restart: unless-stopped

@@ -1,0 +1,19 @@
+{
+  "name": "pele-render",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pele (Mermaid syntax -> SVG/PNG) render service for BookStack",
+  "type": "module",
+  "main": "server.mjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "pele": "1.6.0"
+  }
+}

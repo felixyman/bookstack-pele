@@ -1,0 +1,55 @@
+/**
+ * Pele diagram presentation for BookStack.
+ *
+ * Maps Pele's themeable CSS variables to the BookStack palette. Light values
+ * apply by default; dark values apply when BookStack's dark mode class is set
+ * on the html element.
+ */
+
+.page-content .pele-diagram {
+    margin: 1.25rem 0;
+}
+
+.page-content .pele-diagram svg.pele {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.page-content .pele-diagram--image {
+    text-align: center;
+}
+
+.page-content .pele-diagram-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.page-content .pele-diagram--error {
+    color: var(--color-negative, #e45756);
+    font-style: italic;
+}
+
+.page-content svg.pele {
+    --pele-bg: #ffffff;
+    --pele-fg: #444444;
+    --pele-muted: #666666;
+    --pele-line: #444444;
+    --pele-surface: #f8f8f8;
+    --pele-surface-alt: #f2f2f2;
+    --pele-border: #cccccc;
+    --pele-accent: var(--color-link, #206ea7);
+    --pele-critical: var(--color-negative, #e45756);
+    --pele-font: var(--font-body, sans-serif);
+    --pele-font-mono: var(--font-code, monospace);
+}
+
+html.dark-mode .page-content svg.pele {
+    --pele-bg: #111111;
+    --pele-fg: #aaaaaa;
+    --pele-muted: #888888;
+    --pele-line: #aaaaaa;
+    --pele-surface: #222222;
+    --pele-surface-alt: #333333;
+    --pele-border: #555555;
+}

@@ -1,0 +1,15 @@
+# BookStack instance data (contains APP_KEY, DB credentials, uploads)
+bookstack_app_data/
+bookstack_db_data/
+
+# Local configuration & secrets
+.env
+docker-compose.yml
+
+# Build output
+dist/
+pele-render/node_modules/
+
+# Scratch
+*.log
+*.pdf
