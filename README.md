@@ -102,10 +102,13 @@ php artisan bookstack:install-module \
   https://github.com/felixyman/bookstack-pele/releases/download/v1.0.0/pele-diagrams-1.0.0.zip
 ```
 
-Confirm the trust prompt. If BookStack reports that no active theme folder
-exists, you can let it create one — it will make `themes/custom`, in which case
-set `APP_THEME=custom` instead. On a Dockerized BookStack this is often easier
-to run inside the container:
+Installing from a URL shows two confirmation prompts: one to trust the
+download source (GitHub release assets redirect to
+`release-assets.githubusercontent.com`) and one to confirm the module
+installation. If BookStack reports that no active theme folder exists, you can
+let it create one — it will make `themes/custom`, in which case set
+`APP_THEME=custom` instead. On a Dockerized BookStack this is often easier to
+run inside the container:
 
 ```bash
 docker exec -it bookstack php artisan bookstack:install-module /path/inside/container.zip
