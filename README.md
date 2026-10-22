@@ -45,7 +45,7 @@ published to GitHub Container Registry for `linux/amd64` and `linux/arm64`):
 
 ```yaml
   pele-render:
-    image: ghcr.io/felixyman/bookstack-pele-render:1.0.0
+    image: ghcr.io/felixyman/bookstack-pele-render:1.1.0
     container_name: bookstack_pele_render
     environment:
       - PELE_RENDER_TOKEN=${PELE_RENDER_TOKEN:?set PELE_RENDER_TOKEN in .env}
@@ -90,7 +90,7 @@ echo 'APP_THEME=pele'       # add to your BookStack .env
 Install the module ZIP:
 
 ```bash
-php artisan bookstack:install-module pele-diagrams-1.0.0.zip
+php artisan bookstack:install-module pele-diagrams-1.1.0.zip
 ```
 
 The module ZIPs are attached to
@@ -99,7 +99,7 @@ installer accepts either a URL or a local path:
 
 ```bash
 php artisan bookstack:install-module \
-  https://github.com/felixyman/bookstack-pele/releases/download/v1.0.0/pele-diagrams-1.0.0.zip
+  https://github.com/felixyman/bookstack-pele/releases/download/v1.1.0/pele-diagrams-1.1.0.zip
 ```
 
 Installing from a URL shows two confirmation prompts: one to trust the

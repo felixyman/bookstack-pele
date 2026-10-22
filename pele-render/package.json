@@ -14,6 +14,6 @@
   },
   "dependencies": {
     "@resvg/resvg-js": "2.6.2",
-    "pele": "1.6.0"
+    "pele": "1.8.0"
   }
 }

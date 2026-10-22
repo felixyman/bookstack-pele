@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Log;
 class PeleTheme
 {
     /** Bump to invalidate cached renders and asset URLs (keep in sync with bookstack-module.json). */
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.1.0';
 
     protected const CACHE_PREFIX = 'pele-render:';
     protected const CACHE_DAYS = 30;

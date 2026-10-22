@@ -1,5 +1,5 @@
 {
     "name": "Pele Diagrams",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Renders 'mermaid' code blocks as diagrams via Pele (server-side SVG/PNG), including in PDF and HTML exports. Requires the pele-render sidecar service."
 }
